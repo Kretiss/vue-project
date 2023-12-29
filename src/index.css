@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'RedHatDisplay Regular';
+  font-style: normal;
+  font-weight: 400;
+  src:
+      url('./assets/fonts/RedHatDisplay-Regular.woff2') format('woff2'),
+      url('./assets/fonts/RedHatDisplay-Regular.woff') format('woff'),
+      url('./assets/fonts/RedHatDisplay-Regular.ttf') format('ttf');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'RedHatDisplay Medium';
+  font-style: normal;
+  font-weight: 500;
+  src:
+      url('./assets/fonts/RedHatDisplay-Medium.woff2') format('woff2'),
+      url('./assets/fonts/RedHatDisplay-Medium.woff') format('woff'),
+      url('./assets/fonts/RedHatDisplay-Medium.ttf') format('ttf');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'RedHatDisplay SemiBold';
+  font-style: normal;
+  font-weight: 600;
+  src:
+      url('./assets/fonts/RedHatDisplay-SemiBold.woff2') format('woff2'),
+      url('./assets/fonts/RedHatDisplay-SemiBold.woff') format('woff'),
+      url('./assets/fonts/RedHatDisplay-SemiBold.ttf') format('ttf');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'RedHatDisplay Bold';
+  font-style: normal;
+  font-weight: 700;
+  src:
+      url('./assets/fonts/RedHatDisplay-Bold.woff2') format('woff2'),
+      url('./assets/fonts/RedHatDisplay-Bold.woff') format('woff'),
+      url('./assets/fonts/RedHatDisplay-Bold.ttf') format('ttf');
+  font-display: swap;
+}
+
+@layer base {
+  .container {
+    @apply mx-auto h-full px-2 lg:px-6 xl:!max-w-[1240px] 2xl:!max-w-[1240px];
+  }
+
+  html,
+  body {
+    background-color: theme("colors.gray.50");
+    font-family: theme('fontFamily.regular'), sans-serif;
+  }
+
+  h1 {
+    @apply text-[1.5rem] 2xs:text-[1.75rem] sm:text-[2rem];
+    font-family: theme('fontFamily.bold'), sans-serif;
+  }
+  h2 {
+    /*@apply max-2xs:text-[1.2rem] 2xs:text-[1.45rem] sm:text-[1.7rem];*/
+    @apply max-2xs:text-[1.4rem] 2xs:text-[1.6rem] sm:text-[1.7rem];
+    font-family: theme('fontFamily.bold'), sans-serif;
+  }
+
+  a,
+  button {
+    @apply transition-all duration-100;
+  }
+
+  a:is(:hover, .active) {
+    color: theme('colors.blue.700');
+  }
+
+  .transition-height {
+    max-height: 0;
+    overflow: hidden;
+    transition-property: max-height;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  [type='text']:focus,
+  [type='email']:focus,
+  [type='url']:focus,
+  [type='password']:focus,
+  [type='number']:focus,
+  [type='date']:focus,
+  [type='datetime-local']:focus,
+  [type='month']:focus,
+  [type='search']:focus,
+  [type='tel']:focus,
+  [type='time']:focus,
+  [type='week']:focus,
+  [multiple]:focus,
+  textarea:focus,
+  select:focus {
+    --tw-ring-color: theme('colors.blue.700');
+    border-color: theme('colors.blue.700');
+  }
+
+}
