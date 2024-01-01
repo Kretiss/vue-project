@@ -44,7 +44,7 @@ const updatePage = (by: number) => {
     >
       <CustomButton :disabled="page === 0" text="Prev page" @click="updatePage(-1)" />
       <CustomButton
-        :disabled="pokemons.count < page * count"
+        :disabled="pokemons.count < (page + 1) * count"
         text="Next page"
         @click="updatePage(1)"
       />
