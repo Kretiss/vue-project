@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <div class="flex flex-col items-center gap-4">
-    <InformationCircleIcon />
+    <InformationCircleIcon class="h-[40px]" />
     <span>{{ message }}</span>
   </div>
 </template>

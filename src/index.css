@@ -59,44 +59,12 @@
     font-family: theme('fontFamily.bold'), sans-serif;
   }
   h2 {
-    /*@apply max-2xs:text-[1.2rem] 2xs:text-[1.45rem] sm:text-[1.7rem];*/
     @apply max-2xs:text-[1.4rem] 2xs:text-[1.6rem] sm:text-[1.7rem];
     font-family: theme('fontFamily.bold'), sans-serif;
   }
 
-  a,
   button {
     @apply transition-all duration-100;
   }
 
-  a:is(:hover, .active) {
-    color: theme('colors.blue.700');
-  }
-
-  .transition-height {
-    max-height: 0;
-    overflow: hidden;
-    transition-property: max-height;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-  }
-
-  [type='text']:focus,
-  [type='email']:focus,
-  [type='url']:focus,
-  [type='password']:focus,
-  [type='number']:focus,
-  [type='date']:focus,
-  [type='datetime-local']:focus,
-  [type='month']:focus,
-  [type='search']:focus,
-  [type='tel']:focus,
-  [type='time']:focus,
-  [type='week']:focus,
-  [multiple]:focus,
-  textarea:focus,
-  select:focus {
-    --tw-ring-color: theme('colors.blue.700');
-    border-color: theme('colors.blue.700');
-  }
 }
