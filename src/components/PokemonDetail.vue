@@ -19,11 +19,8 @@ const cardOpen = ref(false)
 
 const { data: pokemon, isLoading, isError } = usePokemonDetail(pokemonName)
 
-const pokemonImage = computed(
-  () => pokemon.value?.sprites.front_default || pokemon.value?.sprites.front_shiny || undefined
-)
-
 const specs = computed(() => ({
+  image: pokemon.value?.sprites.front_default || pokemon.value?.sprites.front_shiny || undefined,
   abilities: pokemon.value?.abilities
     .filter((a) => !a.is_hidden)
     .map((a) => a.ability.name)
@@ -46,6 +43,7 @@ const setCardOpen = (value: boolean) => {
 <template>
   <div>
     <button
+      data-test="button"
       type="button"
       @click="setCardOpen(true)"
       class="flex size-[100px] items-center justify-center rounded-md bg-black-50 shadow hover:shadow-blue-950/30"
@@ -53,12 +51,12 @@ const setCardOpen = (value: boolean) => {
       <CustomLoader v-if="isLoading" />
       <ExclamationTriangleIcon class="w-[40px]" v-if="isError" />
       <img
-        v-if="pokemon && pokemonImage"
+        v-if="pokemon && specs.image"
         class="max-w-full"
-        :src="pokemonImage"
+        :src="specs.image"
         :alt="pokemon.name"
       />
-      <PhotoIcon class="w-[40px]" v-if="pokemon && !pokemonImage" />
+      <PhotoIcon class="w-[40px]" v-if="pokemon && !specs.image" />
     </button>
     <TransitionRoot appear :show="cardOpen" as="template" v-if="pokemon">
       <Dialog @close="setCardOpen(false)" as="div" class="relative z-20">
@@ -85,6 +83,7 @@ const setCardOpen = (value: boolean) => {
           <div class="fixed inset-0 overflow-y-auto">
             <div class="flex min-h-full items-center justify-center p-4 text-center">
               <DialogPanel
+                data-test="dialog-panel"
                 class="flex h-[400px] w-full max-w-[300px] flex-col rounded-xl p-4 sm:h-[520px] sm:max-w-[350px] md:p-8"
                 :class="specs.color.bg"
               >
@@ -95,12 +94,12 @@ const setCardOpen = (value: boolean) => {
                 </div>
                 <div class="flex h-[100px] justify-center">
                   <img
-                    v-if="pokemon && pokemonImage"
+                    v-if="pokemon && specs.image"
                     class="max-w-full"
-                    :src="pokemonImage"
+                    :src="specs.image"
                     :alt="pokemon.name"
                   />
-                  <PhotoIcon class="w-[40px]" v-if="pokemon && !pokemonImage" />
+                  <PhotoIcon class="w-[40px]" v-if="pokemon && !specs.image" />
                 </div>
                 <DialogTitle class="mb-4 uppercase" :class="specs.color.text"
                   >{{ pokemon.name }}
@@ -130,8 +129,9 @@ const setCardOpen = (value: boolean) => {
                     <span
                       class="block border-t border-black-100 py-1 font-semibold"
                       :class="specs.color.text"
-                      >STATS:</span
                     >
+                      STATS:
+                    </span>
                   </div>
                   <div>
                     <template v-for="stat in specs.stats" :key="stat.name">
