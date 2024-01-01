@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
+import HeroSection from '@/components/HeroSection.vue'
+import PokemonList from '@/components/PokemonList.vue'
+</script>
 
 <template>
-  <header>
-    <div class="container"></div>
-  </header>
-
   <main>
-    <div class="container"></div>
+    <HeroSection />
+    <div class="container">
+      <PokemonList />
+    </div>
   </main>
+  <VueQueryDevtools />
 </template>
