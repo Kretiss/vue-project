@@ -11,7 +11,7 @@ import {
 import { ExclamationTriangleIcon, PhotoIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import usePokemonDetail from '@/composables/query/usePokemonDetail'
 import CustomLoader from '@/components/CustomLoader.vue'
-import { getPokemonCardColor } from '@/components/utils/getPokemonCardColor'
+import { getPokemonCardColor } from '@/utils/getPokemonCardColor'
 
 const { pokemonName } = defineProps<{ pokemonName: string }>()
 
@@ -43,13 +43,14 @@ const setCardOpen = (value: boolean) => {
 <template>
   <div>
     <button
-      data-test="button"
+      data-test="open-card-button"
+      :disabled="isLoading || isError || !pokemon"
       type="button"
       @click="setCardOpen(true)"
       class="flex size-[100px] items-center justify-center rounded-md bg-black-50 shadow hover:shadow-blue-950/30"
     >
       <CustomLoader v-if="isLoading" />
-      <ExclamationTriangleIcon class="w-[40px]" v-if="isError" />
+      <ExclamationTriangleIcon class="w-[40px]" v-else-if="isError" />
       <img
         v-if="pokemon && specs.image"
         class="max-w-full"

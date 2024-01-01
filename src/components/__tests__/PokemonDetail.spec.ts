@@ -9,7 +9,7 @@ describe('PokemonDetail', () => {
 
     await flushPromises()
 
-    await wrapper.get('[data-test="button"]').trigger('click')
+    await wrapper.get('[data-test="open-card-button"]').trigger('click')
 
     const header = document.querySelector('[data-test="dialog-panel"] h2')
 
