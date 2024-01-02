@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import usePokemonList from '@/composables/query/usePokemonList'
-import CustomLoader from '@/components/CustomLoader.vue'
-import ShowError from '@/components/ShowError.vue'
-import ShowInfoMessage from '@/components/ShowInfoMessage.vue'
+import CustomLoader from '@/components/reusableComponents/CustomLoader.vue'
+import ShowError from '@/components/reusableComponents/ShowError.vue'
+import ShowInfoMessage from '@/components/reusableComponents/ShowInfoMessage.vue'
 import PokemonDetail from '@/components/PokemonDetail.vue'
-import CustomButton from '@/components/CustomButton.vue'
+import CustomButton from '@/components/reusableComponents/CustomButton.vue'
 
 const containerRef = ref<HTMLDivElement | null>(null)
 
@@ -23,15 +23,9 @@ const updatePage = (by: number) => {
 <template>
   <div ref="containerRef" class="py-5">
     <CustomLoader v-if="isLoading" />
-    <ShowError v-if="isError && !isLoading" />
-    <ShowInfoMessage
-      message="No pokemons found"
-      v-if="!isError && !isLoading && !pokemons?.results.length"
-    />
-    <div
-      v-if="!isError && !isLoading && pokemons?.results.length"
-      class="flex w-full flex-wrap justify-center gap-6"
-    >
+    <ShowError v-else-if="isError" />
+    <ShowInfoMessage v-else-if="!pokemons?.results.length" message="No pokemons found" />
+    <div v-else-if="pokemons?.results.length" class="flex w-full flex-wrap justify-center gap-6">
       <PokemonDetail
         v-for="pokemon in pokemons.results"
         :pokemon-name="pokemon.name"

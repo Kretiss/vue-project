@@ -10,7 +10,7 @@ import {
 } from '@headlessui/vue'
 import { ExclamationTriangleIcon, PhotoIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import usePokemonDetail from '@/composables/query/usePokemonDetail'
-import CustomLoader from '@/components/CustomLoader.vue'
+import CustomLoader from '@/components/reusableComponents/CustomLoader.vue'
 import { getPokemonCardColor } from '@/utils/getPokemonCardColor'
 
 const { pokemonName } = defineProps<{ pokemonName: string }>()
@@ -50,16 +50,16 @@ const setCardOpen = (value: boolean) => {
       class="flex size-[100px] items-center justify-center rounded-md bg-black-50 shadow hover:shadow-blue-950/30"
     >
       <CustomLoader v-if="isLoading" />
-      <ExclamationTriangleIcon class="w-[40px]" v-else-if="isError" />
+      <ExclamationTriangleIcon v-else-if="isError" class="w-[40px]" />
       <img
-        v-if="pokemon && specs.image"
+        v-else-if="pokemon && specs.image"
         class="max-w-full"
         :src="specs.image"
         :alt="pokemon.name"
       />
-      <PhotoIcon class="w-[40px]" v-if="pokemon && !specs.image" />
+      <PhotoIcon v-else-if="pokemon && !specs.image" class="w-[40px]" />
     </button>
-    <TransitionRoot appear :show="cardOpen" as="template" v-if="pokemon">
+    <TransitionRoot v-if="pokemon" :show="cardOpen" as="template">
       <Dialog @close="setCardOpen(false)" as="div" class="relative z-20">
         <TransitionChild
           as="template"
@@ -100,7 +100,7 @@ const setCardOpen = (value: boolean) => {
                     :src="specs.image"
                     :alt="pokemon.name"
                   />
-                  <PhotoIcon class="w-[40px]" v-if="pokemon && !specs.image" />
+                  <PhotoIcon class="w-[40px]" v-else-if="pokemon && !specs.image" />
                 </div>
                 <DialogTitle class="mb-4 uppercase" :class="specs.color.text"
                   >{{ pokemon.name }}
