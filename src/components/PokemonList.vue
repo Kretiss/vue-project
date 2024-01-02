@@ -12,7 +12,7 @@ const containerRef = ref<HTMLDivElement | null>(null)
 const page = ref(0)
 const count = ref(35)
 
-const { data: pokemons, isLoading, isError } = usePokemonList(page, count)
+const { data: pokemons, isFetching, isError, refetch } = usePokemonList(page, count)
 
 const updatePage = (by: number) => {
   page.value += by
@@ -22,8 +22,8 @@ const updatePage = (by: number) => {
 
 <template>
   <div ref="containerRef" class="py-5">
-    <CustomLoader v-if="isLoading" />
-    <ShowError v-else-if="isError" />
+    <CustomLoader v-if="isFetching" />
+    <ShowError v-else-if="isError" :button-disabled="isFetching" @click="refetch()" />
     <ShowInfoMessage v-else-if="!pokemons?.results.length" message="No pokemons found" />
     <div v-else-if="pokemons?.results.length" class="flex w-full flex-wrap justify-center gap-6">
       <PokemonDetail
@@ -33,7 +33,7 @@ const updatePage = (by: number) => {
       />
     </div>
     <div
-      v-if="!isError && !isLoading && pokemons?.results.length"
+      v-if="!isError && !isFetching && pokemons?.results.length"
       class="mb-5 mt-10 flex items-center justify-center gap-4"
     >
       <CustomButton :disabled="page === 0" text="Prev page" @click="updatePage(-1)" />
